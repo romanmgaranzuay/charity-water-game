@@ -20,7 +20,9 @@
        Clouds & Logo
        =============================== -->
   <div class="clouds-img">
-      <img src="img/cw_logo-horizontal.png" alt="Charity: Water Logo" class="cw-logo">
+      <a href="https://www.charitywater.org/home" target="_blank" rel="noopener">
+        <div class="cw-logo"></div>
+      </a>
   </div>
 
   <!-- ===============================
@@ -30,6 +32,21 @@
       <img src="img/StartBucket.svg" alt="Start Bucket" class="start-bucket-img">
       <div class="start-desc">
           charity: water needs generous donors to collect pure water and donate to those in need. Collect 100 pure droplets to win the game! If 3 dirty droplets fall in the bucket, you lose the game. Click "Start" to begin!
+      </div>
+  </div>
+
+
+<!-- ===============================
+       Difficulty Selection
+       =============================== -->
+  <div class="difficulty-selection hidden">
+      <div class="choose-difficulty-text">
+        Choose your preferred difficulty
+      </div>
+      <div class="selection-buttons">
+        <button class="btn difficulty-btn easy-btn mt-2">Easy</button>
+        <button class="btn difficulty-btn medium-btn mt-2">Medium</button>
+        <button class="btn difficulty-btn hard-btn mt-2">Hard</button>
       </div>
   </div>
 
@@ -95,7 +112,7 @@
   <audio id="lose-sound" src="sounds/sad-trombone.wav"></audio>
   <audio id="pop-sound" src="sounds/water-pop-sound.wav"></audio>
   <audio id="bucket-sound" src="sounds/hit-bucket.wav"></audio>
-  
+
   <!-- ===============================
        Scripts
        =============================== -->

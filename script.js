@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- DOM Elements ---
     const startBucket = document.querySelector('.start-bucket');
     const startBucketImg = document.querySelector('.start-bucket-img');
+    const difficultySelection = document.querySelector('.difficulty-selection');
+    const difficultyOptions = document.querySelectorAll('.difficulty-btn');
     const gameContainer = document.querySelector('.game-container');
     const scoreLivesContainer = document.querySelector('.score-lives-container');
     const levelResetContainer = document.querySelector('.level-reset-container');
@@ -25,8 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (startBucket && startBucketImg) {
         startBucketImg.addEventListener('click', function() {
             if (gameRunning) return;
-            gameRunning = true;
-
             // Hide start overlay
             startBucket.style.display = 'none';
 
@@ -34,27 +34,56 @@ document.addEventListener('DOMContentLoaded', function() {
             const bucketSound = document.getElementById('bucket-sound');
             if (bucketSound) bucketSound.play();
 
-            // Show game instructions
-            const messageDiv = document.getElementById('game-message');
-            messageDiv.textContent = "Click the green droplets to stop them from falling in the bucket! Don't click the blue ones, they will cost you points!";
+            // Show difficulty selection
+            if (difficultySelection) difficultySelection.classList.remove('hidden');
+        });
+    }
 
-            setTimeout(() => {
-                messageDiv.textContent = "";
-                if (gameContainer) gameContainer.classList.remove('hidden');
-                if (scoreLivesContainer) scoreLivesContainer.classList.remove('hidden');
-                if (levelResetContainer) levelResetContainer.classList.remove('hidden');
+    // --- Difficulty Selection Logic ---
+    if (difficultyOptions && difficultyOptions.length) {
+        difficultyOptions.forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (gameRunning) return;
+                gameRunning = true;
+                // Hide difficulty selection
+                if (difficultySelection) difficultySelection.classList.add('hidden');
 
-                // Start drop creation intervals
-                blueDropMaker = setInterval(createBlueDrop, 500);
-                greenDropMaker = setInterval(createGreenDrop, 1270);
-            }, 5000);
+                // Show game instructions
+                const messageDiv = document.getElementById('game-message');
+                messageDiv.textContent = "Click the green droplets to stop them from falling in the bucket! Don't click the blue ones, they will cost you points!";
 
-            // Initialize score/lives counters
-            scoreCounter = document.getElementById('score-value');
-            livesCounter = document.getElementById('lives-value');
+                // Set drop intervals based on difficulty
+                let blueInterval = 500;
+                let greenInterval = 1270;
+                if (btn.classList.contains('easy-btn')) {
+                    blueInterval = 500;
+                    greenInterval = 2000;
+                } else if (btn.classList.contains('medium-btn')) {
+                    blueInterval = 500;
+                    greenInterval = 1250;
+                } else if (btn.classList.contains('hard-btn')) {
+                    blueInterval = 500;
+                    greenInterval = 700;
+                }
 
-            // Log game start
-            console.log("Game started");
+                setTimeout(() => {
+                    messageDiv.textContent = "";
+                    if (gameContainer) gameContainer.classList.remove('hidden');
+                    if (scoreLivesContainer) scoreLivesContainer.classList.remove('hidden');
+                    if (levelResetContainer) levelResetContainer.classList.remove('hidden');
+
+                    // Start drop creation intervals
+                    blueDropMaker = setInterval(createBlueDrop, blueInterval);
+                    greenDropMaker = setInterval(createGreenDrop, greenInterval);
+                }, 5000);
+
+                // Initialize score/lives counters
+                scoreCounter = document.getElementById('score-value');
+                livesCounter = document.getElementById('lives-value');
+
+                // Log game start
+                console.log("Game started with difficulty:", btn.textContent.trim());
+            });
         });
     }
 
@@ -98,7 +127,7 @@ function createBlueDrop() {
 
     // Random horizontal position
     const gameWidth = document.getElementById("game-container").offsetWidth;
-    const xPosition = Math.random() * (gameWidth - 60);
+    const xPosition = Math.random() * (gameWidth - 80);
     drop.style.left = xPosition + "px";
     drop.style.top = "0px";
 
