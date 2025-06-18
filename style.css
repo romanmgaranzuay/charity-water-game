@@ -1,0 +1,494 @@
+/* ===============================
+   Charity: water Brand Colors & Fonts
+   =============================== */
+
+/* Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+Fonts:
+- Proxima Nova
+- Avenir
+
+*/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        to top,
+        #d8f3ff 0%,    /* very light blue at the bottom */
+        #afdfff 50%,   /* lighter blue in the middle */
+        #62b0ffd7 100%   /* darker blue at the top */
+    );
+    position: relative;
+    /* Optionally add padding-top if the clouds image has height */
+    /* padding-top: 120px; */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===============================
+   Game Container & Drops
+   =============================== */
+.game-container {
+    width: 600px;
+    height: calc(80vh - 50px); /* 100vh is the viewport height */
+    background-color: #e6f7ff; /* transparent background */
+    border-radius: 8px;
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    top: 7%;
+    transform: translate(-50%);
+    margin-bottom: 50px;
+    display: flex;
+}
+
+/* --- Blue Water Drop --- */
+.blue-water-drop {
+    position: absolute;
+    width: 60px;  /* increased from 40px */
+    height: 60px; /* increased from 40px */
+    background: url('img/blue_droplet.svg') no-repeat center center;
+    border-radius: 50%;
+    animation: dropFall linear forwards;
+    transform-origin: center;
+    cursor: pointer;
+    padding: 15px;  /* Add padding for larger click area */
+    margin: -15px;  /* Offset padding to maintain visual size */
+    transition: transform 0.1s ease;  /* Smooth hover effect */
+}
+
+/* --- Green Water Drop --- */
+.green-water-drop {
+    position: absolute;
+    width: 60px;  /* increased from 40px */
+    height: 60px; /* increased from 40px */
+    background: url('img/green_droplet.svg') no-repeat center center;
+    border-radius: 50%;
+    animation: dropFall linear forwards;
+    transform-origin: center;
+    cursor: pointer;
+    padding: 15px;  /* Add padding for larger click area */
+    margin: -15px;  /* Offset padding to maintain visual size */
+    transition: transform 0.1s ease;  /* Smooth hover effect */
+}
+
+/* ===============================
+   Clouds & Logo
+   =============================== */
+.clouds-img {
+    position: absolute;
+    top: 0;
+    left: -15px; /* Adjust position for desktop */
+    width: 100%;
+    max-width: 700px;
+    height: 20vw;
+    max-height: 120px;
+    min-height: 60px;
+    margin: 0 auto;
+    right: 0;
+    background: url('img/DesktopClouds.svg') no-repeat top center;
+    background-size: contain;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clouds-img .cw-logo {
+    position: relative;
+    z-index: 2;
+    width: 60%;
+    max-width: 320px;
+    min-width: 120px;
+    height: auto;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+/* ===============================
+   Start Overlay
+   =============================== */
+.start-bucket {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; /*flex */
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    width: 100%;
+    pointer-events: none;
+    flex-direction: column;
+}
+
+.start-bucket-img {
+    width: 250px;
+    max-width: 60vw;
+    height: auto;
+    pointer-events: auto;
+}
+
+.start-desc {
+    position: static;
+    margin: 24px auto 0 auto;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    font-family: 'Avenir', 'Proxima Nova', Arial, sans-serif;
+    font-size: 1.5rem;
+    color: #222F3A;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 12px;
+    padding: 12px 8px;
+    z-index: 3;
+    box-shadow: 0 2px 8px rgba(46,157,247,0.07);
+    display: block;
+}
+
+/* ===============================
+   Score & Lives Counters
+   =============================== */
+.score-counter-container {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 10;
+    font-family: 'Avenir', 'Proxima Nova', Arial, sans-serif;
+    font-size: 2.5rem;
+    color: #222F3A;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    padding: 12px 18px;
+    /* box-shadow: 0 2px 8px rgba(46, 157, 247, 0); */
+    min-width: 120px;
+    font-weight: 600;
+    display: block;
+}
+
+.lives-counter-container {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 10;
+    font-family: 'Avenir', 'Proxima Nova', Arial, sans-serif;
+    font-size: 2.5rem;
+    color: #222F3A;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    padding: 12px 18px;
+    /* box-shadow: 0 2px 8px rgba(46,157,247,0.07); */
+    min-width: 120px;
+    font-weight: 600;
+    display: block;
+}
+
+.score-lives-container {
+    display: flex;
+}
+
+/* ===============================
+   Level Reset & Buttons
+   =============================== */
+.level-reset-container {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 20;/* Hide by default */
+}
+
+.level-bucket-img {
+    width: 130px;
+    max-width: 20vw;
+    height: auto;
+    margin-bottom: 0px;
+    display: block;
+}
+
+.reset-btn {
+    font-size: 2rem !important;
+    font-weight: bold;
+    background-color: #FFC907 !important;
+    border: 2px solid #222F3A !important;
+    color: #222F3A !important;
+    border-radius: 16px !important;
+    padding: 10px 30px !important;
+    box-shadow: 0 2px 8px rgba(46,157,247,0.07);
+    line-height: 1.1;
+}
+
+.try-again-btn {
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    background-color: #4FCB53 !important;
+    border: 2px solid #222F3A !important;
+    color: #222F3A !important;
+    border-radius: 16px !important;
+    padding: 10px 30px !important;
+    box-shadow: 0 2px 8px rgba(46,157,247,0.07);
+    margin-top: 10px;
+    margin-left: 10px;
+    transition: background 0.2s;
+}
+
+.back-btn {
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    background-color: #2E9DF7 !important;
+    border: 2px solid #222F3A !important;
+    color: #222F3A !important;
+    border-radius: 16px !important;
+    padding: 10px 30px !important;
+    box-shadow: 0 2px 8px rgba(46,157,247,0.07);
+    margin-top: 10px;
+    margin-left: 10px;
+    transition: background 0.2s;
+}
+
+.reset-btn:active,
+.reset-btn:focus {
+    background-color: #e6b800 !important;
+    color: #222F3A;
+    outline: none;
+}
+
+.try-again-btn:active,
+.try-again-btn:focus {
+    background-color: #17df49 !important;
+    color: #fff;
+    outline: none;
+}
+
+.back-btn:active,
+.back-btn:focus {
+    background-color: #4d93d1 !important;
+    color: #fff;
+    outline: none;
+}
+
+/* ===============================
+   Lose & Win Containers
+   =============================== */
+.lose-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30vh auto 0 auto;
+    background: #fff3e0;
+    border-radius: 14px;
+    max-width: 500px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+    padding: 28px 18px 22px 18px;
+}
+
+.lose-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.lose-bucket-img {
+    width: 160px;
+    height: auto;
+    margin-bottom: 1px;
+}
+
+.lose-text {
+    font-size: 1.75rem;
+    color: #222F3A;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* --- Win Container --- */
+.win-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30vh auto 0 auto;
+    background: #e6ffe0;
+    border-radius: 14px;
+    max-width: 500px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+    padding: 28px 18px 22px 18px;
+}
+
+.win-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.win-bucket-img {
+    width: 160px;
+    height: auto;
+    margin-bottom: 1px;
+}
+
+.win-text {
+    font-size: 1.75rem;
+    color: #222F3A;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* ===============================
+   Game Message
+   =============================== */
+#game-message {
+    position: fixed;
+    font-weight: bold;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 100;
+    text-align: center;
+    font-size: 2rem;
+}
+
+
+/* ===============================
+   Animations
+   =============================== */
+@keyframes dropFall {
+  from { top: 0; }
+  to { top: calc(100% - 60px); }
+}
+
+/* ===============================
+   Responsive Styles (Mobile)
+   =============================== */
+@media (max-width: 599px) {
+  .game-container {
+      width: 75vw;      /* 90% of the viewport width */
+      max-width: 100%;  /* Prevent overflow */
+      top: 10%;
+  }  
+  .water-drop {
+      width: 50px;  /* Adjusted for mobile */
+      height: 50px; /* Adjusted for mobile */
+      margin: -10px; /* Offset padding to maintain visual size */
+  }
+  .clouds-img {
+        background-image: url('img/MobileClouds.svg');
+        height: 30vw;
+        max-height: 200px;
+        min-height: 90px;
+        top: 10px;
+        left: 4px; /* Adjust position for mobile */
+    }
+    .clouds-img .cw-logo {
+        width: 75%;
+        max-width: 200px;
+        min-width: 80px;
+    }
+    .start-bucket {
+        top: 55%;
+    }
+    .start-bucket-img {
+        width: 130px;
+        max-width: 70vw;
+    }
+    .start-desc {
+        font-size: 1.25rem;
+        padding: 12px 12px;
+        margin-top: 16px;
+        max-width: 400px ;
+        right: 20px;
+    }
+    .score-counter-container {
+        left: 8px;
+        bottom: 16px;
+        font-size: 1.5rem;
+        padding: 8px 12px;
+        min-width: 90px;
+    }
+    .lives-counter-container {
+        right: 8px;
+        bottom: 16px;
+        font-size: 1.5rem;
+        padding: 8px 12px;
+        min-width: 90px;
+    }
+    .level-reset-container {
+        bottom: 16px;
+    }
+    .level-bucket-img {
+        width: 80px;
+        max-width: 28vw;
+    }
+    .reset-btn {
+        font-size: 1rem !important;
+        padding: 8px 15px !important;
+        border-radius: 8px !important;
+    }
+    .lose-container {
+        max-width: 400px;
+        padding: 20px 12px;
+    }
+    .lose-bucket-img {
+        width: 120px;
+        margin-bottom: 2px;
+    }
+    .lose-text {
+        font-size: 1.25rem;
+        margin-bottom: 5px;
+    }
+    .try-again-btn {
+        font-size: 0.9rem;
+        padding: 5px 14px;
+    }
+    .win-container {
+        max-width: 400px;
+        padding: 20px 12px;
+    }
+    .win-bucket-img {
+        width: 120px;
+        margin-bottom: 2px;
+    }
+    .win-text {
+        font-size: 1.25rem;
+        margin-bottom: 5px;
+    }
+    .back-btn {
+        font-size: 0.9rem;
+        padding: 5px 14px;
+    }
+    #game-message {
+        font-size: 1.5rem;
+        padding: 15px;
+        top: 50%;
+    }
+}
