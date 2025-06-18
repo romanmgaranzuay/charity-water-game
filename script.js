@@ -137,8 +137,10 @@ function createBlueDrop() {
     // Add to game container
     document.getElementById("game-container").appendChild(drop);
 
-    // --- Drop Click Handler ---
-    drop.addEventListener("click", () => {
+    // --- Drop Click/Touch Handler ---
+    function handleBlueDropTapOrClick(e) {
+        // Prevent double firing on touch devices
+        e.preventDefault();
         // Play pop sound
         const popSound = document.getElementById('pop-sound');
         if (popSound) popSound.play();
@@ -152,7 +154,9 @@ function createBlueDrop() {
                 console.log("Score updated:", scoreCounter.textContent);
             }
         }
-    });
+    }
+    drop.addEventListener("click", handleBlueDropTapOrClick);
+    drop.addEventListener("touchstart", handleBlueDropTapOrClick, { passive: false });
 
     // --- Drop Animation End Handler (reaches bottom) ---
     drop.addEventListener("animationend", () => {
@@ -209,15 +213,18 @@ function createGreenDrop() {
     // Add to game container
     document.getElementById("game-container").appendChild(drop);
 
-    // --- Drop Click Handler ---
-    drop.addEventListener("click", () => {
+    // --- Drop Click/Touch Handler ---
+    function handleGreenDropTapOrClick(e) {
+        e.preventDefault();
         // Play pop sound
         const popSound = document.getElementById('pop-sound');
         if (popSound) popSound.play();
 
         // Remove drop (no score/lives change)
         drop.remove();
-    });
+    }
+    drop.addEventListener("click", handleGreenDropTapOrClick);
+    drop.addEventListener("touchstart", handleGreenDropTapOrClick, { passive: false });
 
     // --- Drop Animation End Handler (reaches bottom) ---
     drop.addEventListener("animationend", () => {
